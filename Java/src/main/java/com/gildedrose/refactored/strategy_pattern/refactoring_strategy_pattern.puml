@@ -1,0 +1,63 @@
+@startuml
+
+class Item {
+  +String name
+  +int sellIn
+  +int quality
+}
+
+class Updater {
+  <<interface>>
+  +update(Item): void
+}
+
+class BaseUpdater {
+  <<abstract>>
+  -clamp(Item): void
+  -decSellIn(Item): void
+  #incQ(Item,int): void
+  #decQ(Item,int): void
+  +update(Item): void
+  #apply(Item): void
+}
+
+Updater <|.. BaseUpdater
+
+class NormalUpdater {
+  +apply(Item): void
+}
+class BrieUpdater {
+  +apply(Item): void
+}
+class BackstageUpdater {
+  +apply(Item): void
+}
+class ConjuredUpdater {
+  +apply(Item): void
+}
+class LegendaryUpdater {
+  +update(Item): void
+}
+
+BaseUpdater <|-- NormalUpdater
+BaseUpdater <|-- BrieUpdater
+BaseUpdater <|-- BackstageUpdater
+BaseUpdater <|-- ConjuredUpdater
+Updater <|.. LegendaryUpdater
+
+class Updaters {
+  +of(Item): Updater
+  <<static factory>>
+}
+
+class GildedRose {
+  -Item[] items
+  +updateQuality(): void
+}
+
+GildedRose o--> Item : items
+GildedRose ..> Updater : depende
+GildedRose ..> Updaters : usa
+
+
+@enduml
