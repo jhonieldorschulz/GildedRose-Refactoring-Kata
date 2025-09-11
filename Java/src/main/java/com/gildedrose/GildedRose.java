@@ -1,11 +1,20 @@
 package com.gildedrose;
 
+import com.gildedrose.refactored.strategy_pattern.Updaters;
+
 public class GildedRose {
     Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
     }
+
+    public void updateQuality_() {
+        for (Item it : items) {
+            Updaters.of(it).update(it);
+        }
+    }
+
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {

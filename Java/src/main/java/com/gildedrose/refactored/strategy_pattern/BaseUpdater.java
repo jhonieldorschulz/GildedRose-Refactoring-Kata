@@ -2,6 +2,14 @@ package com.gildedrose.refactored.strategy_pattern;
 
 import com.gildedrose.Item;
 
+
+/**
+ * Substitui no original:
+ * - O espalhamento de guardas `if (quality > 0)` / `if (quality < 50)`:
+ *   -> vira um único clamp() no final (0..50), exceto Sulfuras.
+ * - O `if (!"Sulfuras") sellIn--`:
+ *   -> aqui todos que HERDAM BaseUpdater decrementam; Sulfuras NÃO herda.
+ */
 abstract public class BaseUpdater implements Updater {
 
     protected void decSellIn(Item item) { item.sellIn--; }
